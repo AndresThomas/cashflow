@@ -17,17 +17,17 @@ const Navbar = () => {
         </NavLink>
         <Bars />
         <NavMenu>
-          <NavLink to='/about' activeStyle>
-            About
+          <NavLink to='/Categorias' activeStyle>
+          Categorias
           </NavLink>
-          <NavLink to='/services' activeStyle>
-            Services
+          <NavLink to='/Indicadores' activeStyle>
+            Indicadores
           </NavLink>
-          <NavLink to='/contact-us' activeStyle>
-            Contact Us
+          <NavLink to='/Flujo' activeStyle>
+            Flujo efectivo
           </NavLink>
-          <NavLink to='/sign-up' activeStyle>
-            Sign Up
+          <NavLink to='/reportes' activeStyle>
+            reportes
           </NavLink>
           {/* Second Nav */}
           {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
