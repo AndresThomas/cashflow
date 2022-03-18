@@ -3,10 +3,10 @@ import './App.css';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages';
-import About from './pages/about';
-import Services from './pages/services';
-import Contact from './pages/contact';
-import SignUp from './pages/signup';
+import Categorias from './pages/categorias';
+import Flujo from './pages/flujo';
+import Indicadores from './pages/indicadores';
+import Reportes from './pages/reportes';
 
 function App() {
   return (
@@ -14,10 +14,10 @@ function App() {
       <Navbar />
       <Routes>
       <Route path="/" element={<Home/>} exact />
-        <Route path='/about' element={<About/>} />
-        <Route path='/services' element={<Services/>} />
-        <Route path='/contact-us' element={<Contact/>} />
-        <Route path='/sign-up' element={<SignUp/>} />
+        <Route path='/Categorias' element={<Categorias/>} />
+        <Route path='/Flujo' element={<Flujo/>} />
+        <Route path='/Indicadores' element={<Indicadores/>} />
+        <Route path='/Reportes' element={<Reportes/>} />
       </Routes>
     </Router>
   );
