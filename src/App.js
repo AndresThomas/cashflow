@@ -3,7 +3,7 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages";
-import Categorias from "./pages/categorias";
+import CategoriasView from "./pages/categorias";
 import Flujo from "./pages/flujo";
 import Indicadores from "./pages/indicadores";
 import Reportes from "./pages/reportes";
@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} exact />
         {isAuthenticated ? (
-          <Route path="/Categorias" element={<Categorias />} />
+          <Route path="/Categorias" element={<CategoriasView />} exact/>
         ) : (
           <Route path="/" element={<Home />} exact />
         )}

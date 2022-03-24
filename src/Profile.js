@@ -12,7 +12,7 @@ export const Profile = () => {
   return (
     isAuthenticated && (
       
-        <h4 className="userinfo"> {user.name}</h4>
+        <h5 className="userinfo"> {user.name}</h5>
       
     )
   );

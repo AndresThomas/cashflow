@@ -6,7 +6,6 @@ import {
   Bars,
   NavMenu,
   NavBtn,
-  NavBtnLink,
 } from "./NavbarElements";
 import { LoginButton } from "../../Login";
 import { LogoutButton } from "../../Logout";
@@ -25,34 +24,37 @@ const Navbar = () => {
             alt="logo"
           />
         </NavLink>
-        <h1>
+        
+          <NavLink to="/">
           <Profile />
-        </h1>
+          </NavLink>
+        
         <Bars />
         <NavMenu>
+        {/*  activeStyle*/}
           {isAuthenticated ? (
-            <NavLink to="/Categorias" activeStyle>
+            <NavLink to="/Categorias" >
               Categorias
             </NavLink>
           ) : (
             <NavLink to="/" > Categorias </NavLink>
           )}
           {isAuthenticated ? (
-            <NavLink to="/Indicadores" activeStyle>
+            <NavLink to="/Indicadores" >
               Indicadores
             </NavLink>
           ) : (
             <NavLink to="/" > Indicadores </NavLink>
           )}
           {isAuthenticated ? (
-            <NavLink to="/Flujo" activeStyle>
+            <NavLink to="/Flujo" >
               Flujo efectivo
             </NavLink>
           ) : (
             <NavLink to="/" > Flujo efectivo </NavLink>
           )}
           {isAuthenticated ? (
-            <NavLink to="/reportes" activeStyle>
+            <NavLink to="/reportes" >
               reportes
             </NavLink>
           ) : (
