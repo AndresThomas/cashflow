@@ -17,22 +17,22 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} exact />
         {isAuthenticated ? (
-          <Route path="/Categorias" element={<CategoriasView />} exact/>
+          <Route path="/categorias" element={<CategoriasView />} exact/>
         ) : (
           <Route path="/" element={<Home />} exact />
         )}
         {isAuthenticated ? (
-          <Route path="/Flujo" element={<Flujo />} />
+          <Route path="/flujo" element={<Flujo />} />
         ) : (
           <Route path="/" element={<Home />} exact />
         )}
         {isAuthenticated ? (
-          <Route path="/Indicadores" element={<Indicadores />} />
+          <Route path="/indicadores" element={<Indicadores />} />
         ) : (
           <Route path="/" element={<Home />} exact />
         )}
         {isAuthenticated ? (
-          <Route path="/Reportes" element={<Reportes />} />
+          <Route path="/reportes" element={<Reportes />} />
         ) : (
           <Route path="/" element={<Home />} exact />
         )}
