@@ -5,6 +5,7 @@ import axios from "axios";
 import { Categoria } from "../models/categoria";
 
 class CategoriasView extends Component {
+  url ="https://cashflowbackend.herokuapp.com/";
   state = {
     data: [], //para la tabla
     clasificaciones: [],
@@ -17,9 +18,9 @@ class CategoriasView extends Component {
   getDatosTabla = () => {
     let unmounted = false;
     axios
-      .get("/categorias")
+      .get(this.url+"categorias")
       .then((response) => {
-        console.log(response, "getDatosTabla");
+        // console.log(response, "getDatosTabla");
         if (!unmounted) {
           this.setState({ data: response.data });
         }
@@ -35,9 +36,9 @@ class CategoriasView extends Component {
   getDatosClasificacion = () => {
     let unmounted = false;
     axios
-      .get("/clasificacion")
+      .get(this.url+"clasificacion")
       .then((response) => {
-        console.log(response, " getDatosClasificacion");
+        // console.log(response, " getDatosClasificacion");
         if (!unmounted) {
           this.setState({ clasificaciones: response.data });
         }
@@ -57,10 +58,12 @@ class CategoriasView extends Component {
       this.state.form.categoria,
       this.state.form.subCategoria
     );
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     axios
-      .post("/categorias", categoria)
+      .post(this.url+"categorias", categoria)
       .then((response) => {
         console.log(response);
+        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
         this.setState({ data: response.data });
         this.getDatosTabla();
       })
@@ -77,12 +80,12 @@ class CategoriasView extends Component {
         [e.target.name]: e.target.value,
       },
     });
-    console.log(this.state.form);
+    // console.log(this.state.form);
   };
 
   componentDidMount() {
-    this.getDatosClasificacion();
     this.getDatosTabla();
+    this.getDatosClasificacion();
   }
 
   render() {
@@ -154,7 +157,7 @@ class CategoriasView extends Component {
                   key={elemento.idClasificacion}
                   value={elemento.clasificacion}
                 >
-                  {elemento.clasificacion}{" "}
+                  {elemento.clasificacion}
                 </option>
               ))}
             </select>

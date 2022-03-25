@@ -5,11 +5,12 @@ import axios from "axios";
 import { Flujo } from "../models/flujo";
 
 class FlujoView extends Component {
+  url = "https://cashflowbackend.herokuapp.com/";
   state = {
     data: [], //para la tabla
     categorias: [],
     form: {
-      tipo:'',
+      tipo: "",
       categoria: "",
       descripcion: "",
       cantidad: "",
@@ -18,9 +19,9 @@ class FlujoView extends Component {
   getDatosTabla = () => {
     let unmounted = false;
     axios
-      .get("/flujo")
+      .get(this.url + "flujo")
       .then((response) => {
-        console.log(response, "getDatosTabla");
+        // console.log(response, "getDatosTabla");
         if (!unmounted) {
           this.setState({ data: response.data });
         }
@@ -37,9 +38,9 @@ class FlujoView extends Component {
   getDatosCategorias = () => {
     let unmounted = false;
     axios
-      .get("/categorias")
+      .get(this.url + "categorias")
       .then((response) => {
-        console.log(response, "getDatosTabla");
+        //console.log(response, "getDatosCategorias");
         if (!unmounted) {
           this.setState({ categorias: response.data });
         }
@@ -53,27 +54,32 @@ class FlujoView extends Component {
     };
   };
 
+  getDate() {
+    let fecha = new Date();
+    let date = ("0" + fecha.getDate()).slice(-2);
+    let month = ("0" + (fecha.getMonth() + 1)).slice(-2);
+    let year = fecha.getFullYear();
+    let hour = ("0" + fecha.getHours()).slice(-2);
+    let min = ("0" + fecha.getMinutes()).slice(-2);
+    let sec = fecha.getSeconds();
+
+    return year + "-" + month + "-" + date + " " + hour + ":" + min + ":" + sec;
+  }
+
   postFlujo(e) {
     e.persist();
-    let fecha = new Date();
-    let date = ("0"+ fecha.getDate()).slice(-2);
-    let month = ("0"+(fecha.getMonth()+1)).slice(-2);
-    let year = fecha.getFullYear();
-    let hour = ("0"+ fecha.getHours()).slice(-2);
-    let min = ("0"+ fecha.getMinutes()).slice(-2);
-    let sec = fecha.getSeconds();
-    fecha = year+'-'+month+'-'+date+' '+hour+':'+min+':'+sec;
-    const categoria = new Flujo(
+    const fecha = this.getDate();
+    const flujo = new Flujo(
       fecha,
       this.state.form.tipo,
       this.state.form.categoria,
       this.state.form.descripcion,
       this.state.form.cantidad
     );
-    axios
-      .post("/flujo", categoria)
+     axios
+      .post(this.url + "flujo", { flujo })
       .then((response) => {
-        console.log(response);
+        console.log(response, " respuesta");
         this.setState({ data: response.data });
         this.getDatosTabla();
       })
@@ -83,8 +89,6 @@ class FlujoView extends Component {
   }
 
   handleChange = async (e) => {
-    console.log(e.target, '********');
-
     e.persist();
     await this.setState({
       form: {
@@ -92,7 +96,6 @@ class FlujoView extends Component {
         [e.target.name]: e.target.value,
       },
     });
-    console.log(this.state.form);
   };
 
   componentDidMount() {
@@ -112,34 +115,18 @@ class FlujoView extends Component {
         }}
       >
         <div
-          key="div-table"
           className=" table-responsive "
           style={{
             height: "50vh",
-            // backgroundColor: "blue",
-            alignItems: "center",
-            textAlign: "center",
-            display: "grid",
           }}
         >
-          <table className="table container" key="table">
-            <thead key="table-head">
-              <tr
-                style={{ position: "sticky", top: "0px" }}
-                key="table-row-head"
-              >
-                <th style={{ position: "sticky", top: "0px" }} key="th1">
-                  Fecha
-                </th>
-                <th style={{ position: "sticky", top: "0px" }} key="th2">
-                  Descripcion
-                </th>
-                <th style={{ position: "sticky", top: "0px" }} key="th3">
-                  Categoria
-                </th>
-                <th style={{ position: "sticky", top: "0px" }} key="th4">
-                  Sub-Categoria
-                </th>
+          <table className="table container">
+            <thead>
+              <tr key="table-row-head">
+                <th key="th1">Fecha</th>
+                <th key="th2">Descripcion</th>
+                <th key="th3">Categoria</th>
+                <th key="th4">Sub-Categoria</th>
               </tr>
             </thead>
             <tbody key="tbdoy">
@@ -148,8 +135,8 @@ class FlujoView extends Component {
                   <tr key={registro.idFlujo}>
                     <td key={registro.id}>{registro.fecha}</td>
                     <td key={registro.id}>{registro.descripcion}</td>
-                    <td key={registro.id}>{registro.categoria.categoria}</td>
-                    <td key={registro.id}>{registro.categoria.subCategoria}</td>
+                    <td key={registro.id}>{registro.categoria}</td>
+                    <td key={registro.id}>{registro.subCategoria}</td>
                   </tr>
                 );
               })}
@@ -167,17 +154,19 @@ class FlujoView extends Component {
           }}
         >
           <form key="form.key" onSubmit={(e) => this.postFlujo(e)}>
-            <div className="form-check"
-            >
-              <input className="form-check-input"
+            <div className="form-check">
+              <input
+                className="form-check-input"
                 type="checkbox"
                 name="tipo"
                 value="entrada"
                 id="entradaBox"
-                onChange={ this.handleChange}
+                onChange={this.handleChange}
               />
-               <label className="form-check-label" >Entrada</label><br/>
-              <input className="form-check-input"
+              <label className="form-check-label">Entrada</label>
+              <br />
+              <input
+                className="form-check-input"
                 type="checkbox"
                 name="tipo"
                 value="salida"
@@ -186,14 +175,18 @@ class FlujoView extends Component {
               />
               <label className="form-check-label">salida</label>
             </div>
-            <label className="form-check-label" >Seleccione el tipo de flujo a registrar:</label><br/>
-            
+            <label className="form-check-label">
+              Seleccione el tipo de flujo a registrar:
+            </label>
+            <br />
+
             <select
               onChange={this.handleChange}
               key="select"
               name="categoria"
               className="form-control"
-            ><option>Opciones</option>
+            >
+              <option>Opciones</option>
               {this.state.categorias.map((elemento) => (
                 <option key={elemento.idCategoria} value={elemento.idCategoria}>
                   {elemento.categoria + " - " + elemento.subCategoria}
@@ -208,8 +201,8 @@ class FlujoView extends Component {
               onChange={this.handleChange}
               placeholder="Descripcion"
             />
-            <label className="form-check-label" >Cantidad: </label>
-            
+            <label className="form-check-label">Cantidad: </label>
+
             <input
               className="form-control input"
               type="text"

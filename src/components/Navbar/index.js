@@ -33,21 +33,21 @@ const Navbar = () => {
         <NavMenu>
         {/*  activeStyle*/}
           {isAuthenticated ? (
-            <NavLink to="/Categorias" >
+            <NavLink to="/categorias" >
               Categorias
             </NavLink>
           ) : (
             <NavLink to="/" > Categorias </NavLink>
           )}
           {isAuthenticated ? (
-            <NavLink to="/Indicadores" >
+            <NavLink to="/indicadores" >
               Indicadores
             </NavLink>
           ) : (
             <NavLink to="/" > Indicadores </NavLink>
           )}
           {isAuthenticated ? (
-            <NavLink to="/Flujo" >
+            <NavLink to="/flujo" >
               Flujo efectivo
             </NavLink>
           ) : (

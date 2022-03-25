@@ -15,26 +15,26 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} exact />
+        <Route exact path="/" element={<Home />} />
         {isAuthenticated ? (
-          <Route path="/categorias" element={<CategoriasView />} exact/>
+          <Route exact path="/categorias" element={<CategoriasView />} />
         ) : (
-          <Route path="/" element={<Home />} exact />
+          <Route exact path="/" element={<Home />} />
         )}
         {isAuthenticated ? (
-          <Route path="/flujo" element={<Flujo />} />
+          <Route exact path="/flujo" element={<Flujo />} />
         ) : (
-          <Route path="/" element={<Home />} exact />
+          <Route exact path="/" element={<Home />} />
         )}
         {isAuthenticated ? (
-          <Route path="/indicadores" element={<Indicadores />} />
+          <Route exact path="/indicadores" element={<Indicadores />} />
         ) : (
-          <Route path="/" element={<Home />} exact />
+          <Route exact path="/" element={<Home />} />
         )}
         {isAuthenticated ? (
-          <Route path="/reportes" element={<Reportes />} />
+          <Route exact path="/reportes" element={<Reportes />} />
         ) : (
-          <Route path="/" element={<Home />} exact />
+          <Route exact path="/" element={<Home />} />
         )}
       </Routes>
     </Router>
